@@ -123,7 +123,7 @@
 <div class="app">
 
   <h1>6-Minute Walk Test</h1>
-  <div class="subtitle">Trial 1 & Trial 2 · Mobile Optimized</div>
+  <div class="subtitle">Mobile Optimized</div>
 
   <!-- Patient Info -->
   <div class="section-title">Patient Info</div>
@@ -138,9 +138,15 @@
   <!-- Height Weight BMI -->
   <div class="section-title">Body Measurements</div>
   <div class="info-grid">
-    <label>Height (cm)<input type="number"></label>
-    <label>Weight (kg)<input type="number"></label>
-    <label>BMI<input type="number" step="0.1"></label>
+    <label>Height (cm)
+      <input type="number" id="heightInput">
+    </label>
+    <label>Weight (kg)
+      <input type="number" id="weightInput">
+    </label>
+    <label>BMI
+      <input type="text" id="bmiInput" placeholder="kg/m²" readonly>
+    </label>
   </div>
 
   <!-- Timer -->
@@ -160,18 +166,21 @@
   <table>
     <thead>
       <tr>
-        <th>SpO₂</th>
-        <th>PR</th>
-        <th>BP</th>
-        <th>Borg</th>
+        <th></th>
+        <th>SpO₂</th><th>PR</th><th>BP</th><th>Borg</th>
+        <th>SpO₂</th><th>PR</th><th>BP</th><th>Borg</th>
       </tr>
     </thead>
     <tbody>
       <tr>
-        <td><input></td>
-        <td><input></td>
-        <td><input placeholder="120/80"></td>
-        <td><input></td>
+        <td>Trial 1</td>
+        <td><input></td><td><input></td><td><input placeholder="120/80"></td><td><input></td>
+        <td><input></td><td><input></td><td><input placeholder="120/80"></td><td><input></td>
+      </tr>
+      <tr>
+        <td>Trial 2</td>
+        <td><input></td><td><input></td><td><input placeholder="120/80"></td><td><input></td>
+        <td><input></td><td><input></td><td><input placeholder="120/80"></td><td><input></td>
       </tr>
     </tbody>
   </table>
@@ -230,18 +239,21 @@
   <table>
     <thead>
       <tr>
-        <th>SpO₂</th>
-        <th>PR</th>
-        <th>BP</th>
-        <th>Borg</th>
+        <th></th>
+        <th>SpO₂</th><th>PR</th><th>BP</th><th>Borg</th>
+        <th>SpO₂</th><th>PR</th><th>BP</th><th>Borg</th>
       </tr>
     </thead>
     <tbody>
       <tr>
-        <td><input></td>
-        <td><input></td>
-        <td><input placeholder="120/80"></td>
-        <td><input></td>
+        <td>Trial 1</td>
+        <td><input></td><td><input></td><td><input placeholder="120/80"></td><td><input></td>
+        <td><input></td><td><input></td><td><input placeholder="120/80"></td><td><input></td>
+      </tr>
+      <tr>
+        <td>Trial 2</td>
+        <td><input></td><td><input></td><td><input placeholder="120/80"></td><td><input></td>
+        <td><input></td><td><input></td><td><input placeholder="120/80"></td><td><input></td>
       </tr>
     </tbody>
   </table>
@@ -271,7 +283,7 @@
       margin-top:4px;
       font-size:13px;
       font-weight:600;">
-    Laps: 0  ·  Distance: 0 m  (30 m per lap)
+    Laps: 0 · Distance: 0 m (30 m per lap)
   </div>
 
 </div>
@@ -282,12 +294,16 @@
   let running = false;
   let timerId = null;
 
-  let laps = 0; 
+  let laps = 0;
 
   const timerEl = document.getElementById("timer");
   const exerciseBody = document.getElementById("exerciseBody");
   const lapInfoEl = document.getElementById("lapInfo");
   const lapBtn = document.getElementById("lapBtn");
+
+  const heightInput = document.getElementById("heightInput");
+  const weightInput = document.getElementById("weightInput");
+  const bmiInput    = document.getElementById("bmiInput");
 
   function format(sec) {
     const m = String(Math.floor(sec / 60)).padStart(2,'0');
@@ -314,7 +330,21 @@
 
   function updateLapDisplay() {
     const dist = laps * 30;
-    lapInfoEl.textContent = `Laps: ${laps}  ·  Distance: ${dist} m  (30 m per lap)`;
+    lapInfoEl.textContent = `Laps: ${laps} · Distance: ${dist} m (30 m per lap)`;
+  }
+
+  // BMI 自动计算：kg / (m^2)
+  function updateBMI() {
+    const hCm = parseFloat(heightInput.value);
+    const wKg = parseFloat(weightInput.value);
+
+    if (hCm > 0 && wKg > 0) {
+      const hM = hCm / 100;
+      const bmi = wKg / (hM * hM);
+      bmiInput.value = bmi.toFixed(1) + " kg/m²";
+    } else {
+      bmiInput.value = "";
+    }
   }
 
   function startTimer(){
@@ -331,7 +361,7 @@
       if (elapsed >= DURATION){
         clearInterval(timerId);
         running = false;
-        alert("6 end");
+        alert("6 分钟结束");
       }
     },1000);
   }
@@ -357,11 +387,17 @@
   document.getElementById("pauseBtn").onclick = pauseTimer;
   document.getElementById("resetBtn").onclick = resetTimer;
 
+  // Lap 按钮：只更新文字
   lapBtn.onclick = function () {
     laps++;
     updateLapDisplay();
   };
 
+  // BMI 输入监听
+  heightInput.addEventListener("input", updateBMI);
+  weightInput.addEventListener("input", updateBMI);
+
+  // 初始化
   updateTimer();
   updateLapDisplay();
 </script>
