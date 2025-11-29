@@ -47,13 +47,9 @@
 
     .info-grid {
       display: grid;
-      grid-template-columns: repeat(2, 1fr);
+      grid-template-columns: 1fr;
       gap: 6px;
       font-size: 12px;
-    }
-
-    .info-grid-1col {
-      grid-template-columns: 1fr;
     }
 
     .info-grid label {
@@ -141,23 +137,9 @@
 
   <!-- Patient Info：只保留 Name -->
   <div class="section-title">Patient Info</div>
-  <div class="info-grid info-grid-1col">
+  <div class="info-grid">
     <label>Name
       <input type="text">
-    </label>
-  </div>
-
-  <!-- Height Weight BMI -->
-  <div class="section-title">Body Measurements</div>
-  <div class="info-grid">
-    <label>Height (cm)
-      <input type="number" id="heightInput">
-    </label>
-    <label>Weight (kg)
-      <input type="number" id="weightInput">
-    </label>
-    <label>BMI
-      <input type="text" id="bmiInput" placeholder="kg/m²" readonly>
     </label>
   </div>
 
@@ -188,15 +170,15 @@
         <td>Trial 1</td>
         <td><input type="text" inputmode="numeric"></td>
         <td><input type="text" inputmode="numeric"></td>
-        <td><input type="text" placeholder="120/80"></td>
-        <td><input></td>
+        <td><input type="text" inputmode="numeric" class="bp-input" placeholder="120/80"></td>
+        <td><input type="text" inputmode="numeric"></td>
       </tr>
       <tr>
         <td>Trial 2</td>
         <td><input type="text" inputmode="numeric"></td>
         <td><input type="text" inputmode="numeric"></td>
-        <td><input type="text" placeholder="120/80"></td>
-        <td><input></td>
+        <td><input type="text" inputmode="numeric" class="bp-input" placeholder="120/80"></td>
+        <td><input type="text" inputmode="numeric"></td>
       </tr>
     </tbody>
   </table>
@@ -230,55 +212,55 @@
         <td>1</td>
         <td><input type="text" inputmode="numeric"></td>
         <td><input type="text" inputmode="numeric"></td>
-        <td><input></td>
         <td><input type="text" inputmode="numeric"></td>
         <td><input type="text" inputmode="numeric"></td>
-        <td><input></td>
+        <td><input type="text" inputmode="numeric"></td>
+        <td><input type="text" inputmode="numeric"></td>
       </tr>
       <tr data-minute="2">
         <td>2</td>
         <td><input type="text" inputmode="numeric"></td>
         <td><input type="text" inputmode="numeric"></td>
-        <td><input></td>
+        <td><input type="text" inputmode="numeric"></td>
+       <td><input type="text" inputmode="numeric"></td>
         <td><input type="text" inputmode="numeric"></td>
         <td><input type="text" inputmode="numeric"></td>
-        <td><input></td>
       </tr>
       <tr data-minute="3">
         <td>3</td>
         <td><input type="text" inputmode="numeric"></td>
         <td><input type="text" inputmode="numeric"></td>
-        <td><input></td>
         <td><input type="text" inputmode="numeric"></td>
         <td><input type="text" inputmode="numeric"></td>
-        <td><input></td>
+        <td><input type="text" inputmode="numeric"></td>
+        <td><input type="text" inputmode="numeric"></td>
       </tr>
       <tr data-minute="4">
         <td>4</td>
         <td><input type="text" inputmode="numeric"></td>
         <td><input type="text" inputmode="numeric"></td>
-        <td><input></td>
         <td><input type="text" inputmode="numeric"></td>
         <td><input type="text" inputmode="numeric"></td>
-        <td><input></td>
+        <td><input type="text" inputmode="numeric"></td>
+        <td><input type="text" inputmode="numeric"></td>
       </tr>
       <tr data-minute="5">
         <td>5</td>
         <td><input type="text" inputmode="numeric"></td>
         <td><input type="text" inputmode="numeric"></td>
-        <td><input></td>
         <td><input type="text" inputmode="numeric"></td>
         <td><input type="text" inputmode="numeric"></td>
-        <td><input></td>
+        <td><input type="text" inputmode="numeric"></td>
+        <td><input type="text" inputmode="numeric"></td>
       </tr>
       <tr data-minute="6">
         <td>6</td>
         <td><input type="text" inputmode="numeric"></td>
         <td><input type="text" inputmode="numeric"></td>
-        <td><input></td>
         <td><input type="text" inputmode="numeric"></td>
         <td><input type="text" inputmode="numeric"></td>
-        <td><input></td>
+        <td><input type="text" inputmode="numeric"></td>
+        <td><input type="text" inputmode="numeric"></td>
       </tr>
     </tbody>
   </table>
@@ -300,15 +282,15 @@
         <td>Trial 1</td>
         <td><input type="text" inputmode="numeric"></td>
         <td><input type="text" inputmode="numeric"></td>
-        <td><input type="text" placeholder="120/80"></td>
-        <td><input></td>
+        <td><input type="text" inputmode="numeric" class="bp-input" placeholder="120/80"></td>
+        <td><input type="text" inputmode="numeric"></td>
       </tr>
       <tr>
         <td>Trial 2</td>
         <td><input type="text" inputmode="numeric"></td>
         <td><input type="text" inputmode="numeric"></td>
-        <td><input type="text" placeholder="120/80"></td>
-        <td><input></td>
+        <td><input type="text" inputmode="numeric" class="bp-input" placeholder="120/80"></td>
+        <td><input type="text" inputmode="numeric"></td>
       </tr>
     </tbody>
   </table>
@@ -326,8 +308,8 @@
     <tbody>
       <tr>
         <td>Total</td>
-        <td><input></td>
-        <td><input></td>
+        <td><input type="text" inputmode="numeric"></td>
+        <td><input type="text" inputmode="numeric"></td>
       </tr>
     </tbody>
   </table>
@@ -383,10 +365,6 @@
   const lapInfoEl = document.getElementById("lapInfo");
   const lapBtn = document.getElementById("lapBtn");
 
-  const heightInput = document.getElementById("heightInput");
-  const weightInput = document.getElementById("weightInput");
-  const bmiInput    = document.getElementById("bmiInput");
-
   const stopStartBtn = document.getElementById("stopStartBtn");
   const stopEndBtn   = document.getElementById("stopEndBtn");
   const stopsBody    = document.getElementById("stopsBody");
@@ -420,20 +398,6 @@
     lapInfoEl.textContent = `Laps: ${laps} · Distance: ${dist} m (30 m per lap)`;
   }
 
-  // BMI 自动计算：kg / (m^2)
-  function updateBMI() {
-    const hCm = parseFloat(heightInput.value);
-    const wKg = parseFloat(weightInput.value);
-
-    if (hCm > 0 && wKg > 0) {
-      const hM = hCm / 100;
-      const bmi = wKg / (hM * hM);
-      bmiInput.value = bmi.toFixed(1) + " kg/m²";
-    } else {
-      bmiInput.value = "";
-    }
-  }
-
   function updateStopsSummary() {
     const n = stopsBody.children.length;
     if (n === 0) {
@@ -452,7 +416,7 @@
       <td>${format(startSec)}</td>
       <td>${format(endSec)}</td>
       <td>${format(durationSec)}</td>
-      <td><input></td>
+      <td><input type="text" inputmode="numeric"></td>
     `;
     stopsBody.appendChild(tr);
   }
@@ -542,9 +506,18 @@
     closeCurrentStop(elapsed);
   };
 
-  // BMI 输入监听
-  heightInput.addEventListener("input", updateBMI);
-  weightInput.addEventListener("input", updateBMI);
+  // BP 自动插入 "/"：例如 12080 → 120/80
+  const bpInputs = document.querySelectorAll('.bp-input');
+  bpInputs.forEach(input => {
+    input.addEventListener('input', function () {
+      let v = this.value.replace(/[^\d]/g, ''); // 只留数字
+      if (v.length > 3) {
+        this.value = v.slice(0, 3) + '/' + v.slice(3, 5);
+      } else {
+        this.value = v;
+      }
+    });
+  });
 
   // 初始化
   updateTimer();
